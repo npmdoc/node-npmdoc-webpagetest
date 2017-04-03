@@ -1,0 +1,786 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="http://github.com/marcelduran/webpagetest-api"
+
+    >webpagetest (v0.3.4)</a>
+</h1>
+<h4>WebPageTest API wrapper for NodeJS</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest">module webpagetest</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.scriptToString">
+            function <span class="apidocSignatureSpan">webpagetest.</span>scriptToString
+            <span class="apidocSignatureSpan">(data)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">webpagetest.</span>defaultListenPort</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">webpagetest.</span>defaultWaitResultsPort</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">webpagetest.</span>filenames</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">webpagetest.</span>helper</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">webpagetest.</span>mapping</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">webpagetest.</span>paths</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">webpagetest.</span>server</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">webpagetest.</span>defaultServer</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.helper">module webpagetest.helper</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.WPTAPIError">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>WPTAPIError
+            <span class="apidocSignatureSpan">(code, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.csvParser">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>csvParser
+            <span class="apidocSignatureSpan">(data, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.csvToObj">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>csvToObj
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.dataURI">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>dataURI
+            <span class="apidocSignatureSpan">(data)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.dryRun">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>dryRun
+            <span class="apidocSignatureSpan">(config, path)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.localhost">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>localhost
+            <span class="apidocSignatureSpan">(local, defaultPort)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.netLogParser">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>netLogParser
+            <span class="apidocSignatureSpan">(data)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.normalizeServer">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>normalizeServer
+            <span class="apidocSignatureSpan">(server)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.scriptToString">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>scriptToString
+            <span class="apidocSignatureSpan">(data)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.setQuery">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>setQuery
+            <span class="apidocSignatureSpan">(map, options, query)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.tsvToObj">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>tsvToObj
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.helper.xmlToObj">
+            function <span class="apidocSignatureSpan">webpagetest.helper.</span>xmlToObj
+            <span class="apidocSignatureSpan">(xml, callback)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.mapping">module webpagetest.mapping</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.mapping.setOptions">
+            function <span class="apidocSignatureSpan">webpagetest.mapping.</span>setOptions
+            <span class="apidocSignatureSpan">(command, query)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">webpagetest.mapping.</span>commands</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">webpagetest.mapping.</span>options</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.server">module webpagetest.server</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.server.listen">
+            function <span class="apidocSignatureSpan">webpagetest.server.</span>listen
+            <span class="apidocSignatureSpan">(local, options, callback)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.webpagetest" id="apidoc.module.webpagetest">module webpagetest</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.scriptToString" id="apidoc.element.webpagetest.scriptToString">
+        function <span class="apidocSignatureSpan">webpagetest.</span>scriptToString
+        <span class="apidocSignatureSpan">(data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function scriptToString(data) {
+  var script = [];
+
+  data.forEach(function dataEach(step) {
+    var key, value;
+
+    if (typeof step === &#x27;string&#x27;) {
+      script.push(step);
+    } else if (typeof step === &#x27;object&#x27;) {
+      key = [Object.keys(step)[0]];
+      value = step[key];
+      if (value !== undefined &#x26;&#x26; value !== null &#x26;&#x26; value !== &#x27;&#x27;) {
+        key = key.concat(value);
+      }
+      script.push(key.join(TAB));
+    }
+  });
+
+  return script.join(NEWLINE);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+#### Notes
+
+* `getWaterfallImage` and `getScreenshotImage` callback function has a third parameter `info` which is an object with `{type: &#
+x27;image/jpeg or png&#x27;, encoding: &#x27;utf8 or binary&#x27;}`
+* `scriptToString` script array values 1-N are optional. e.g:
+
+```javascript
+var script = wpt.<span class="apidocCodeKeywordSpan">scriptToString</span>([
+{logData: 0},
+{navigate: &#x27;http://foo.com/login&#x27;},
+{logData: 1},
+{setValue: [&#x27;name=username&#x27;, &#x27;johndoe&#x27;]},
+{setValue: [&#x27;name=password&#x27;, &#x27;12345&#x27;]},
+{submitForm: &#x27;action=http://foo.com/main&#x27;},
+&#x27;waitForComplete&#x27;
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.webpagetest.helper" id="apidoc.module.webpagetest.helper">module webpagetest.helper</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.WPTAPIError" id="apidoc.element.webpagetest.helper.WPTAPIError">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>WPTAPIError
+        <span class="apidocSignatureSpan">(code, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function WPTAPIError(code, message) {
+  this.name = &#x27;WPTAPIError&#x27;;
+  this.code = code || 0;
+  this.message = message || this.name;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.csvParser" id="apidoc.element.webpagetest.helper.csvParser">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>csvParser
+        <span class="apidocSignatureSpan">(data, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function csvParser(data, callback) {
+  csv.parse(data.toString(), { columns: true }, function(err, data) {
+    if (err) {
+      callback.bind(this, err);
+    }
+    csv.transform(data, function(row) {
+      var key, value;
+      for (key in row) {
+        value = row[key].replace(/&#x3c;b&#x3e;|&#x3c;\/b&#x3e;/g, &#x27;&#x27;);
+        row[key] = entities.decode(value, 2);
+      }
+      return row;
+    }, callback.bind(this));
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.csvToObj" id="apidoc.element.webpagetest.helper.csvToObj">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>csvToObj
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">csvToObj = function () { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.dataURI" id="apidoc.element.webpagetest.helper.dataURI">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>dataURI
+        <span class="apidocSignatureSpan">(data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function dataURI(data) {
+  return new Buffer(data || &#x27;&#x27;, &#x27;binary&#x27;).toString(&#x27;base64&#x27;);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.dryRun" id="apidoc.element.webpagetest.helper.dryRun">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>dryRun
+        <span class="apidocSignatureSpan">(config, path)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function dryRun(config, path) {
+  path = url.parse(path, true);
+
+  return {
+    url: url.format({
+      protocol: config.protocol,
+      hostname: config.hostname,
+      port: (config.port !== 80 &#x26;&#x26; config.port !== 443 ?
+        config.port : undefined),
+      pathname: path.pathname,
+      query: path.query
+    })
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.localhost" id="apidoc.element.webpagetest.helper.localhost">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>localhost
+        <span class="apidocSignatureSpan">(local, defaultPort)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function localhost(local, defaultPort) {
+  // edge case when hostname:port is not informed via cli
+  if (local === undefined || local === &#x27;true&#x27;) {
+    local = [defaultPort];
+  } else {
+    local = local.toString().split(&#x27;:&#x27;);
+  }
+
+  return {
+    hostname: reIp.test(local[0]) || isNaN(parseInt(local[0], 10)) &#x26;&#x26;
+      local[0] ? local[0] : os.hostname(),
+    port: parseInt(local[1] || (!reIp.test(local[0]) &#x26;&#x26; local[0]), 10) ||
+      defaultPort
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.netLogParser" id="apidoc.element.webpagetest.helper.netLogParser">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>netLogParser
+        <span class="apidocSignatureSpan">(data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function netLogParser(data) {
+  data = (data || &#x27;{}&#x27;).toString();
+  if (data.slice(data.length - 3) === &#x27;,\r\n&#x27;) {
+    data = data.slice(0, data.length - 3) + &#x27;]}&#x27;;
+  }
+
+  return JSON.parse(data);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.normalizeServer" id="apidoc.element.webpagetest.helper.normalizeServer">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>normalizeServer
+        <span class="apidocSignatureSpan">(server)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function normalizeServer(server) {
+  // normalize hostname
+  if (!reProtocol.test(server)) {
+    server = &#x27;http://&#x27; + server;
+  }
+  server = url.parse(server);
+
+  return {
+    protocol: server.protocol,
+    hostname: server.hostname,
+    auth: server.auth,
+    pathname: server.pathname,
+    port: parseInt(server.port, 10) || (server.protocol === &#x27;https:&#x27; ? 443 : 80)
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.scriptToString" id="apidoc.element.webpagetest.helper.scriptToString">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>scriptToString
+        <span class="apidocSignatureSpan">(data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function scriptToString(data) {
+  var script = [];
+
+  data.forEach(function dataEach(step) {
+    var key, value;
+
+    if (typeof step === &#x27;string&#x27;) {
+      script.push(step);
+    } else if (typeof step === &#x27;object&#x27;) {
+      key = [Object.keys(step)[0]];
+      value = step[key];
+      if (value !== undefined &#x26;&#x26; value !== null &#x26;&#x26; value !== &#x27;&#x27;) {
+        key = key.concat(value);
+      }
+      script.push(key.join(TAB));
+    }
+  });
+
+  return script.join(NEWLINE);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+#### Notes
+
+* `getWaterfallImage` and `getScreenshotImage` callback function has a third parameter `info` which is an object with `{type: &#
+x27;image/jpeg or png&#x27;, encoding: &#x27;utf8 or binary&#x27;}`
+* `scriptToString` script array values 1-N are optional. e.g:
+
+```javascript
+var script = wpt.<span class="apidocCodeKeywordSpan">scriptToString</span>([
+{logData: 0},
+{navigate: &#x27;http://foo.com/login&#x27;},
+{logData: 1},
+{setValue: [&#x27;name=username&#x27;, &#x27;johndoe&#x27;]},
+{setValue: [&#x27;name=password&#x27;, &#x27;12345&#x27;]},
+{submitForm: &#x27;action=http://foo.com/main&#x27;},
+&#x27;waitForComplete&#x27;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.setQuery" id="apidoc.element.webpagetest.helper.setQuery">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>setQuery
+        <span class="apidocSignatureSpan">(map, options, query)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function setQuery(map, options, query) {
+  query = query || {};
+  options = options || {};
+
+  map.options.forEach(function eachOpts(opt) {
+    Object.keys(opt).forEach(function eachOpt(key) {
+      var param = opt[key],
+          name = param.name,
+          value = options[name] || options[key];
+
+      if (value !== undefined &#x26;&#x26; param.api) {
+        if (param.array) {
+          value = [].concat(value).join(&#x27; &#x27;);
+        }
+        query[param.api] = param.bool ? param.invert ?
+          (value ? 0 : 1) : (value ? 1 : 0) : value;
+      }
+    });
+  });
+
+  return query;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.tsvToObj" id="apidoc.element.webpagetest.helper.tsvToObj">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>tsvToObj
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">tsvToObj = function () { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.helper.xmlToObj" id="apidoc.element.webpagetest.helper.xmlToObj">
+        function <span class="apidocSignatureSpan">webpagetest.helper.</span>xmlToObj
+        <span class="apidocSignatureSpan">(xml, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function xmlToObj(xml, callback) {
+  parser.parseString(xml, function (err, obj) {
+    if (err) {
+      callback(err);
+    }
+
+    normalizeObj(obj);
+    callback(undefined, obj);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.webpagetest.mapping" id="apidoc.module.webpagetest.mapping">module webpagetest.mapping</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.mapping.setOptions" id="apidoc.element.webpagetest.mapping.setOptions">
+        function <span class="apidocSignatureSpan">webpagetest.mapping.</span>setOptions
+        <span class="apidocSignatureSpan">(command, query)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function setOptions(command, query) {
+  var count, opts;
+
+  command = commands[command];
+  if (!command) {
+    return;
+  }
+
+  opts = {};
+  count = Object.keys(query).length;
+
+  [options.common].concat(command.options).some(function someTypes(options) {
+    if (!options) {
+      return;
+    }
+    Object.keys(options).some(function someOptions(key) {
+      var valid = options[key].valid;
+
+      if (query.hasOwnProperty(key)) {
+        if (options[key].bool) {
+          opts[options[key].name] = !reBool.test(query[key]);
+        } else if (!valid || (valid &#x26;&#x26; valid.test(query[key]))) {
+          opts[options[key].name] = decodeURIComponent(query[key]);
+        }
+        count -= 1;
+      }
+
+      return count === 0;
+    });
+
+    return count === 0;
+  });
+
+  return opts;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+if (method &#x26;&#x26; method !== &#x27;listen&#x27;) {
+  // id, url or script
+  if (uri.id) {
+    args.push(decodeURIComponent(uri.id));
+  }
+
+  // options
+  args.push(mapping.<span class="apidocCodeKeywordSpan">setOptions</span>(uri.command, uri.query));
+
+  // callback
+  args.push(output.bind(res, callback));
+
+  this[method].apply(this, args);
+} else {
+  // help
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.webpagetest.server" id="apidoc.module.webpagetest.server">module webpagetest.server</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.server.listen" id="apidoc.element.webpagetest.server.listen">
+        function <span class="apidocSignatureSpan">webpagetest.server.</span>listen
+        <span class="apidocSignatureSpan">(local, options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function listen(local, options, callback) {
+  var server;
+
+  if (fs.existsSync(options.key) &#x26;&#x26; fs.existsSync(options.cert)) {
+    server = https.createServer({
+      key: fs.readFileSync(path.resolve(process.cwd(), options.key)),
+      cert: fs.readFileSync(path.resolve(process.cwd(), options.cert))
+    }, route.bind(this));
+  } else {
+    server = http.createServer(route.bind(this));
+  }
+
+  server.on(&#x27;error&#x27;, function listenError(err) {
+    if (typeof callback === &#x27;function&#x27;) {
+      callback(err);
+    }
+  }).on(&#x27;listening&#x27;, function listenError() {
+    if (typeof callback === &#x27;function&#x27;) {
+      callback(undefined, {
+        server: server,
+        protocol: server instanceof https.Server ? &#x27;https&#x27; : &#x27;http&#x27;,
+        hostname: local.hostname,
+        port: local.port,
+        url: url.format({
+          protocol: server instanceof https.Server ? &#x27;https&#x27; : &#x27;http&#x27;,
+          hostname: local.hostname,
+          port: local.port
+        })
+      });
+    }
+  }).listen(local.port);
+
+  buildHelp(url.format(this.config.hostname));
+
+  return server;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+#### Notes
+* port _8080_ is optional, default port is _7791_
+* `wpt.foo.com` is overriding the default `www.webpagetest.org` server but can still be overridden with `server` option
+* when _--key_ and _--cert_ are provided, HTTPS is used instead of default HTTP server
+
+### Module
+```javascript
+var server = wpt.<span class="apidocCodeKeywordSpan">listen</span>(8080, function(err, data) {
+if (err) throw err;
+console.log(&#x27;listening on &#x27; + data.url);
+}); // listen on port 8080 (optional), default port is 7791
+
+setTimeout(function() {
+server.close(function() {
+  console.log(&#x27;server closed&#x27;);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>

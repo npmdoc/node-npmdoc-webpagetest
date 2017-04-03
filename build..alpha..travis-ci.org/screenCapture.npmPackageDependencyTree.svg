@@ -1,0 +1,37 @@
+<svg height="542" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="542" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26">└─┬ webpagetest@0.3.4 </tspan>
+<tspan x="10" y="42">  ├─┬ commander@2.9.0 </tspan>
+<tspan x="10" y="58">  │ └── graceful-readlink@1.0.1 </tspan>
+<tspan x="10" y="74">  ├─┬ csv@0.4.6 </tspan>
+<tspan x="10" y="90">  │ ├── csv-generate@0.0.6 </tspan>
+<tspan x="10" y="106">  │ ├── csv-parse@1.2.0 </tspan>
+<tspan x="10" y="122">  │ ├── csv-stringify@0.0.8 </tspan>
+<tspan x="10" y="138">  │ └── stream-transform@0.1.2 </tspan>
+<tspan x="10" y="154">  ├── entities@1.1.1 </tspan>
+<tspan x="10" y="170">  ├─┬ mocha@2.5.3 </tspan>
+<tspan x="10" y="186">  │ ├── commander@2.3.0 </tspan>
+<tspan x="10" y="202">  │ ├─┬ debug@2.2.0 </tspan>
+<tspan x="10" y="218">  │ │ └── ms@0.7.1 </tspan>
+<tspan x="10" y="234">  │ ├── diff@1.4.0 </tspan>
+<tspan x="10" y="250">  │ ├── escape-string-regexp@1.0.2 </tspan>
+<tspan x="10" y="266">  │ ├─┬ glob@3.2.11 </tspan>
+<tspan x="10" y="282">  │ │ ├── inherits@2.0.3 </tspan>
+<tspan x="10" y="298">  │ │ └─┬ minimatch@0.3.0 </tspan>
+<tspan x="10" y="314">  │ │   ├── lru-cache@2.7.3 </tspan>
+<tspan x="10" y="330">  │ │   └── sigmund@1.0.1 </tspan>
+<tspan x="10" y="346">  │ ├── growl@1.9.2 </tspan>
+<tspan x="10" y="362">  │ ├─┬ jade@0.26.3 </tspan>
+<tspan x="10" y="378">  │ │ ├── commander@0.6.1 </tspan>
+<tspan x="10" y="394">  │ │ └── mkdirp@0.3.0 </tspan>
+<tspan x="10" y="410">  │ ├─┬ mkdirp@0.5.1 </tspan>
+<tspan x="10" y="426">  │ │ └── minimist@0.0.8 </tspan>
+<tspan x="10" y="442">  │ ├── supports-color@1.2.0 </tspan>
+<tspan x="10" y="458">  │ └── to-iso-string@0.0.2 </tspan>
+<tspan x="10" y="474">  └─┬ xml2js@0.4.17 </tspan>
+<tspan x="10" y="490">    ├── sax@1.2.2 </tspan>
+<tspan x="10" y="506">    └─┬ xmlbuilder@4.2.1 </tspan>
+<tspan x="10" y="522">      └── lodash@4.17.4</tspan>
+</text>
+</svg>
