@@ -56,9 +56,36 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.webpagetest">
+            function <span class="apidocSignatureSpan"></span>webpagetest
+            <span class="apidocSignatureSpan">(server, key)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.webpagetest.scriptToString">
             function <span class="apidocSignatureSpan">webpagetest.</span>scriptToString
             <span class="apidocSignatureSpan">(data)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.specs">
+            function <span class="apidocSignatureSpan">webpagetest.</span>specs
+            <span class="apidocSignatureSpan">(specs, reporter, callback, err, data)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.toString">
+            function <span class="apidocSignatureSpan">webpagetest.</span>toString
+            <span class="apidocSignatureSpan">()</span>
             </a>
 
         </li>
@@ -250,6 +277,19 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.scriptToString">module webpagetest.scriptToString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.scriptToString.scriptToString">
+            function <span class="apidocSignatureSpan">webpagetest.</span>scriptToString
+            <span class="apidocSignatureSpan">(data)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
     <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.server">module webpagetest.server</a><ol>
 
         <li>
@@ -263,10 +303,56 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.specs">module webpagetest.specs</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.specs.specs">
+            function <span class="apidocSignatureSpan">webpagetest.</span>specs
+            <span class="apidocSignatureSpan">(specs, reporter, callback, err, data)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.toString">module webpagetest.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.toString.toString">
+            function <span class="apidocSignatureSpan">webpagetest.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.webpagetest" id="apidoc.module.webpagetest">module webpagetest</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.webpagetest" id="apidoc.element.webpagetest.webpagetest">
+        function <span class="apidocSignatureSpan"></span>webpagetest
+        <span class="apidocSignatureSpan">(server, key)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function WebPageTest(server, key) {
+  if (!(this instanceof WebPageTest)) {
+    return new WebPageTest(server, key);
+  }
+
+  this.config = helper.normalizeServer(server || WebPageTest.defaultServer);
+  this.config.key = key;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>
@@ -313,6 +399,115 @@ var script = wpt.<span class="apidocCodeKeywordSpan">scriptToString</span>([
 {setValue: ['name=password', '12345']},
 {submitForm: 'action=http://foo.com/main'},
 'waitForComplete'
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.specs" id="apidoc.element.webpagetest.specs">
+        function <span class="apidocSignatureSpan">webpagetest.</span>specs
+        <span class="apidocSignatureSpan">(specs, reporter, callback, err, data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function specsRunner(specs, reporter, callback, err, data) {
+  var defaults = {},
+      tests = [],
+      path = [];
+
+  // bail if test not complete
+  if (!err &amp;&amp; (!data || data.statusCode !== 200)) {
+    return callback(err, data);
+  }
+
+  function traverse(specs, data) {
+    Object.keys(specs).forEach(function(key) {
+      // bail on default
+      if (key === 'defaults' &amp;&amp; !path.length) {
+        return;
+      }
+
+      path.push(key);
+      if (data[key] === undefined || data[key] === null) {
+        tests.push({
+          text: path.join('.'),
+          result: new Error('not found')
+        });
+        path.pop();
+        return;
+      }
+
+      var spec = specs[key];
+      if (typeof spec === 'object' &amp;&amp; !spec.min &amp;&amp; !spec.max) {
+        traverse(spec, data[key]);
+      } else if(typeof spec === 'number' &amp;&amp; Array.isArray(data[key])) {
+          tests.push(
+            buildTest(path.join('.'), spec, data[key].length, defaults));
+          path.pop();
+      } else {
+        tests.push(buildTest(path.join('.'), spec, data[key], defaults));
+        path.pop();
+      }
+    });
+  }
+
+  // parse specs
+  specs = parseSpecs(specs);
+
+  // error handling
+  if (specs instanceof Error) {
+    err = err || specs;
+  } else if (!(data &amp;&amp; data.data)) {
+    err = err || new Error('no data');
+  }
+
+  if (err) {
+    tests.push({text: err.message, result: err});
+  } else {
+    defaults = specs.defaults || {};
+    traverse(specs, data.data);
+  }
+
+  // run mocha suite
+  var mocha = new Mocha({reporter: reporter});
+  mocha.suite.emit('pre-require', global, null, mocha);
+  buildSuite(defaults, tests);
+  mocha.run(callback || function(failures) {
+    process.exit(failures);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.toString" id="apidoc.element.webpagetest.toString">
+        function <span class="apidocSignatureSpan">webpagetest.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+delimiter = delimiter || ',';
+
+if (!sv) {
+  return {};
+}
+
+sv = sv.<span class="apidocCodeKeywordSpan">toString</span>();
+// keep line breaks consistent as "\n" and remove the very last one
+data = sv.replace(reLineBreak, '\n').replace(reLastBreak, '').split('\n');
+
+if (!headers) {
+  headers = data[0].split(delimiter);
+  start = 1;
+}
 ...</pre></li>
     </ul>
 
@@ -703,6 +898,60 @@ if (method &amp;&amp; method !== 'listen') {
 </div>
 
 <div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.webpagetest.scriptToString" id="apidoc.module.webpagetest.scriptToString">module webpagetest.scriptToString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.scriptToString.scriptToString" id="apidoc.element.webpagetest.scriptToString.scriptToString">
+        function <span class="apidocSignatureSpan">webpagetest.</span>scriptToString
+        <span class="apidocSignatureSpan">(data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function scriptToString(data) {
+  var script = [];
+
+  data.forEach(function dataEach(step) {
+    var key, value;
+
+    if (typeof step === 'string') {
+      script.push(step);
+    } else if (typeof step === 'object') {
+      key = [Object.keys(step)[0]];
+      value = step[key];
+      if (value !== undefined &amp;&amp; value !== null &amp;&amp; value !== '') {
+        key = key.concat(value);
+      }
+      script.push(key.join(TAB));
+    }
+  });
+
+  return script.join(NEWLINE);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+#### Notes
+
+* `getWaterfallImage` and `getScreenshotImage` callback function has a third parameter `info` which is an object with `{type: &amp;#
+x27;image/jpeg or png', encoding: 'utf8 or binary'}`
+* `scriptToString` script array values 1-N are optional. e.g:
+
+```javascript
+var script = wpt.<span class="apidocCodeKeywordSpan">scriptToString</span>([
+{logData: 0},
+{navigate: 'http://foo.com/login'},
+{logData: 1},
+{setValue: ['name=username', 'johndoe']},
+{setValue: ['name=password', '12345']},
+{submitForm: 'action=http://foo.com/main'},
+'waitForComplete'
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.webpagetest.server" id="apidoc.module.webpagetest.server">module webpagetest.server</a></h1>
 
 
@@ -765,6 +1014,123 @@ console.log('listening on ' + data.url);
 setTimeout(function() {
 server.close(function() {
   console.log('server closed');
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.webpagetest.specs" id="apidoc.module.webpagetest.specs">module webpagetest.specs</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.specs.specs" id="apidoc.element.webpagetest.specs.specs">
+        function <span class="apidocSignatureSpan">webpagetest.</span>specs
+        <span class="apidocSignatureSpan">(specs, reporter, callback, err, data)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function specsRunner(specs, reporter, callback, err, data) {
+  var defaults = {},
+      tests = [],
+      path = [];
+
+  // bail if test not complete
+  if (!err &amp;&amp; (!data || data.statusCode !== 200)) {
+    return callback(err, data);
+  }
+
+  function traverse(specs, data) {
+    Object.keys(specs).forEach(function(key) {
+      // bail on default
+      if (key === 'defaults' &amp;&amp; !path.length) {
+        return;
+      }
+
+      path.push(key);
+      if (data[key] === undefined || data[key] === null) {
+        tests.push({
+          text: path.join('.'),
+          result: new Error('not found')
+        });
+        path.pop();
+        return;
+      }
+
+      var spec = specs[key];
+      if (typeof spec === 'object' &amp;&amp; !spec.min &amp;&amp; !spec.max) {
+        traverse(spec, data[key]);
+      } else if(typeof spec === 'number' &amp;&amp; Array.isArray(data[key])) {
+          tests.push(
+            buildTest(path.join('.'), spec, data[key].length, defaults));
+          path.pop();
+      } else {
+        tests.push(buildTest(path.join('.'), spec, data[key], defaults));
+        path.pop();
+      }
+    });
+  }
+
+  // parse specs
+  specs = parseSpecs(specs);
+
+  // error handling
+  if (specs instanceof Error) {
+    err = err || specs;
+  } else if (!(data &amp;&amp; data.data)) {
+    err = err || new Error('no data');
+  }
+
+  if (err) {
+    tests.push({text: err.message, result: err});
+  } else {
+    defaults = specs.defaults || {};
+    traverse(specs, data.data);
+  }
+
+  // run mocha suite
+  var mocha = new Mocha({reporter: reporter});
+  mocha.suite.emit('pre-require', global, null, mocha);
+  buildSuite(defaults, tests);
+  mocha.run(callback || function(failures) {
+    process.exit(failures);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.webpagetest.toString" id="apidoc.module.webpagetest.toString">module webpagetest.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.webpagetest.toString.toString" id="apidoc.element.webpagetest.toString.toString">
+        function <span class="apidocSignatureSpan">webpagetest.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+delimiter = delimiter || ',';
+
+if (!sv) {
+  return {};
+}
+
+sv = sv.<span class="apidocCodeKeywordSpan">toString</span>();
+// keep line breaks consistent as "\n" and remove the very last one
+data = sv.replace(reLineBreak, '\n').replace(reLastBreak, '').split('\n');
+
+if (!headers) {
+  headers = data[0].split(delimiter);
+  start = 1;
+}
 ...</pre></li>
     </ul>
 
