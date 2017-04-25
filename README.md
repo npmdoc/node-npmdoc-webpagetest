@@ -1,4 +1,7 @@
-# api documentation for  [webpagetest (v0.3.4)](http://github.com/marcelduran/webpagetest-api)  [![npm package](https://img.shields.io/npm/v/npmdoc-webpagetest.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-webpagetest) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-webpagetest.svg)](https://travis-ci.org/npmdoc/node-npmdoc-webpagetest)
+# npmdoc-webpagetest
+
+#### basic api documentation for  [webpagetest (v0.3.4)](http://github.com/marcelduran/webpagetest-api)  [![npm package](https://img.shields.io/npm/v/npmdoc-webpagetest.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-webpagetest) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-webpagetest.svg)](https://travis-ci.org/npmdoc/node-npmdoc-webpagetest)
+
 #### WebPageTest API wrapper for NodeJS
 
 [![NPM](https://nodei.co/npm/webpagetest.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/webpagetest)
