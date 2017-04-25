@@ -81,24 +81,6 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.specs">
-            function <span class="apidocSignatureSpan">webpagetest.</span>specs
-            <span class="apidocSignatureSpan">(specs, reporter, callback, err, data)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.toString">
-            function <span class="apidocSignatureSpan">webpagetest.</span>toString
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-        <li>
-
             <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">webpagetest.</span>defaultListenPort</span>
 
         </li>
@@ -284,19 +266,6 @@
 
     </ol></li>
 
-    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.scriptToString">module webpagetest.scriptToString</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.scriptToString.scriptToString">
-            function <span class="apidocSignatureSpan">webpagetest.</span>scriptToString
-            <span class="apidocSignatureSpan">(data)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
     <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.server">module webpagetest.server</a><ol>
 
         <li>
@@ -304,32 +273,6 @@
             <a class="apidocElementLiA" href="#apidoc.element.webpagetest.server.listen">
             function <span class="apidocSignatureSpan">webpagetest.server.</span>listen
             <span class="apidocSignatureSpan">(local, options, callback)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.specs">module webpagetest.specs</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.specs.specs">
-            function <span class="apidocSignatureSpan">webpagetest.</span>specs
-            <span class="apidocSignatureSpan">(specs, reporter, callback, err, data)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.webpagetest.toString">module webpagetest.toString</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.webpagetest.toString.toString">
-            function <span class="apidocSignatureSpan">webpagetest.</span>toString
-            <span class="apidocSignatureSpan">()</span>
             </a>
 
         </li>
@@ -406,115 +349,6 @@ var script = wpt.<span class="apidocCodeKeywordSpan">scriptToString</span>([
 {setValue: [&#x27;name=password&#x27;, &#x27;12345&#x27;]},
 {submitForm: &#x27;action=http://foo.com/main&#x27;},
 &#x27;waitForComplete&#x27;
-...</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.webpagetest.specs" id="apidoc.element.webpagetest.specs">
-        function <span class="apidocSignatureSpan">webpagetest.</span>specs
-        <span class="apidocSignatureSpan">(specs, reporter, callback, err, data)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function specsRunner(specs, reporter, callback, err, data) {
-  var defaults = {},
-      tests = [],
-      path = [];
-
-  // bail if test not complete
-  if (!err &#x26;&#x26; (!data || data.statusCode !== 200)) {
-    return callback(err, data);
-  }
-
-  function traverse(specs, data) {
-    Object.keys(specs).forEach(function(key) {
-      // bail on default
-      if (key === &#x27;defaults&#x27; &#x26;&#x26; !path.length) {
-        return;
-      }
-
-      path.push(key);
-      if (data[key] === undefined || data[key] === null) {
-        tests.push({
-          text: path.join(&#x27;.&#x27;),
-          result: new Error(&#x27;not found&#x27;)
-        });
-        path.pop();
-        return;
-      }
-
-      var spec = specs[key];
-      if (typeof spec === &#x27;object&#x27; &#x26;&#x26; !spec.min &#x26;&#x26; !spec.max) {
-        traverse(spec, data[key]);
-      } else if(typeof spec === &#x27;number&#x27; &#x26;&#x26; Array.isArray(data[key])) {
-          tests.push(
-            buildTest(path.join(&#x27;.&#x27;), spec, data[key].length, defaults));
-          path.pop();
-      } else {
-        tests.push(buildTest(path.join(&#x27;.&#x27;), spec, data[key], defaults));
-        path.pop();
-      }
-    });
-  }
-
-  // parse specs
-  specs = parseSpecs(specs);
-
-  // error handling
-  if (specs instanceof Error) {
-    err = err || specs;
-  } else if (!(data &#x26;&#x26; data.data)) {
-    err = err || new Error(&#x27;no data&#x27;);
-  }
-
-  if (err) {
-    tests.push({text: err.message, result: err});
-  } else {
-    defaults = specs.defaults || {};
-    traverse(specs, data.data);
-  }
-
-  // run mocha suite
-  var mocha = new Mocha({reporter: reporter});
-  mocha.suite.emit(&#x27;pre-require&#x27;, global, null, mocha);
-  buildSuite(defaults, tests);
-  mocha.run(callback || function(failures) {
-    process.exit(failures);
-  });
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.element.webpagetest.toString" id="apidoc.element.webpagetest.toString">
-        function <span class="apidocSignatureSpan">webpagetest.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return text;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-
-delimiter = delimiter || &#x27;,&#x27;;
-
-if (!sv) {
-  return {};
-}
-
-sv = sv.<span class="apidocCodeKeywordSpan">toString</span>();
-// keep line breaks consistent as &#x22;\n&#x22; and remove the very last one
-data = sv.replace(reLineBreak, &#x27;\n&#x27;).replace(reLastBreak, &#x27;&#x27;).split(&#x27;\n&#x27;);
-
-if (!headers) {
-  headers = data[0].split(delimiter);
-  start = 1;
-}
 ...</pre></li>
     </ul>
 
@@ -905,60 +739,6 @@ if (method &#x26;&#x26; method !== &#x27;listen&#x27;) {
 </div>
 
 <div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.webpagetest.scriptToString" id="apidoc.module.webpagetest.scriptToString">module webpagetest.scriptToString</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.webpagetest.scriptToString.scriptToString" id="apidoc.element.webpagetest.scriptToString.scriptToString">
-        function <span class="apidocSignatureSpan">webpagetest.</span>scriptToString
-        <span class="apidocSignatureSpan">(data)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function scriptToString(data) {
-  var script = [];
-
-  data.forEach(function dataEach(step) {
-    var key, value;
-
-    if (typeof step === &#x27;string&#x27;) {
-      script.push(step);
-    } else if (typeof step === &#x27;object&#x27;) {
-      key = [Object.keys(step)[0]];
-      value = step[key];
-      if (value !== undefined &#x26;&#x26; value !== null &#x26;&#x26; value !== &#x27;&#x27;) {
-        key = key.concat(value);
-      }
-      script.push(key.join(TAB));
-    }
-  });
-
-  return script.join(NEWLINE);
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-
-#### Notes
-
-* `getWaterfallImage` and `getScreenshotImage` callback function has a third parameter `info` which is an object with `{type: &#
-x27;image/jpeg or png&#x27;, encoding: &#x27;utf8 or binary&#x27;}`
-* `scriptToString` script array values 1-N are optional. e.g:
-
-```javascript
-var script = wpt.<span class="apidocCodeKeywordSpan">scriptToString</span>([
-{logData: 0},
-{navigate: &#x27;http://foo.com/login&#x27;},
-{logData: 1},
-{setValue: [&#x27;name=username&#x27;, &#x27;johndoe&#x27;]},
-{setValue: [&#x27;name=password&#x27;, &#x27;12345&#x27;]},
-{submitForm: &#x27;action=http://foo.com/main&#x27;},
-&#x27;waitForComplete&#x27;
-...</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.webpagetest.server" id="apidoc.module.webpagetest.server">module webpagetest.server</a></h1>
 
 
@@ -1021,123 +801,6 @@ console.log(&#x27;listening on &#x27; + data.url);
 setTimeout(function() {
 server.close(function() {
   console.log(&#x27;server closed&#x27;);
-...</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.webpagetest.specs" id="apidoc.module.webpagetest.specs">module webpagetest.specs</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.webpagetest.specs.specs" id="apidoc.element.webpagetest.specs.specs">
-        function <span class="apidocSignatureSpan">webpagetest.</span>specs
-        <span class="apidocSignatureSpan">(specs, reporter, callback, err, data)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function specsRunner(specs, reporter, callback, err, data) {
-  var defaults = {},
-      tests = [],
-      path = [];
-
-  // bail if test not complete
-  if (!err &#x26;&#x26; (!data || data.statusCode !== 200)) {
-    return callback(err, data);
-  }
-
-  function traverse(specs, data) {
-    Object.keys(specs).forEach(function(key) {
-      // bail on default
-      if (key === &#x27;defaults&#x27; &#x26;&#x26; !path.length) {
-        return;
-      }
-
-      path.push(key);
-      if (data[key] === undefined || data[key] === null) {
-        tests.push({
-          text: path.join(&#x27;.&#x27;),
-          result: new Error(&#x27;not found&#x27;)
-        });
-        path.pop();
-        return;
-      }
-
-      var spec = specs[key];
-      if (typeof spec === &#x27;object&#x27; &#x26;&#x26; !spec.min &#x26;&#x26; !spec.max) {
-        traverse(spec, data[key]);
-      } else if(typeof spec === &#x27;number&#x27; &#x26;&#x26; Array.isArray(data[key])) {
-          tests.push(
-            buildTest(path.join(&#x27;.&#x27;), spec, data[key].length, defaults));
-          path.pop();
-      } else {
-        tests.push(buildTest(path.join(&#x27;.&#x27;), spec, data[key], defaults));
-        path.pop();
-      }
-    });
-  }
-
-  // parse specs
-  specs = parseSpecs(specs);
-
-  // error handling
-  if (specs instanceof Error) {
-    err = err || specs;
-  } else if (!(data &#x26;&#x26; data.data)) {
-    err = err || new Error(&#x27;no data&#x27;);
-  }
-
-  if (err) {
-    tests.push({text: err.message, result: err});
-  } else {
-    defaults = specs.defaults || {};
-    traverse(specs, data.data);
-  }
-
-  // run mocha suite
-  var mocha = new Mocha({reporter: reporter});
-  mocha.suite.emit(&#x27;pre-require&#x27;, global, null, mocha);
-  buildSuite(defaults, tests);
-  mocha.run(callback || function(failures) {
-    process.exit(failures);
-  });
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.webpagetest.toString" id="apidoc.module.webpagetest.toString">module webpagetest.toString</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.webpagetest.toString.toString" id="apidoc.element.webpagetest.toString.toString">
-        function <span class="apidocSignatureSpan">webpagetest.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-
-delimiter = delimiter || &#x27;,&#x27;;
-
-if (!sv) {
-  return {};
-}
-
-sv = sv.<span class="apidocCodeKeywordSpan">toString</span>();
-// keep line breaks consistent as &#x22;\n&#x22; and remove the very last one
-data = sv.replace(reLineBreak, &#x27;\n&#x27;).replace(reLastBreak, &#x27;&#x27;).split(&#x27;\n&#x27;);
-
-if (!headers) {
-  headers = data[0].split(delimiter);
-  start = 1;
-}
 ...</pre></li>
     </ul>
 
